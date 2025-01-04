@@ -18,7 +18,19 @@ if (isset($_GET['action']) && $_GET['action'] === 'hapus' && isset($_GET['id']))
 }
 
 if (!isset($_SESSION['keranjang']) || empty($_SESSION['keranjang'])) {
-    echo "<div class='container mt-5 text-center'><h3>Keranjang Anda kosong.</h3></div>";
+    echo "
+    <div class='container mt-5 text-center'>
+        <div class='empty-cart' style='padding: 40px;
+        border: 1px dashed #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        display: inline-block;'>
+            <i style='color: #608dee;' class='fas fa-shopping-cart fa-5x text-muted'></i>
+            <h3 class='mt-3'>Keranjang Anda Kosong</h3>
+            <p>Sepertinya Anda belum menambahkan produk apapun ke keranjang.</p>
+            <a href='./gallery.php' class='btn btn-primary mt-3'>Lihat Produk</a>
+        </div>
+    </div>";
     exit();
 }
 
@@ -34,7 +46,7 @@ $total_harga = 0;
     <title>Keranjang Belanja</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- <link rel="stylesheet" href="chart-style.css"> -->
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -101,14 +113,27 @@ $total_harga = 0;
             padding: 20px;
             margin-top: 20px;
         }
+
+        .empty-cart {
+            padding: 40px;
+            border: 1px dashed #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            display: inline-block;
+        }
+
+        .empty-cart i {
+            color: #608dee;
+            /* Warna ikon */
+        }
     </style>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg shadow-sm">
+    <nav class="navbar navbar-expand-lg shadow-sm">
         <div class="container">
             <a href="javascript:history.back()" class="btn btn-light me-2">
-                <i class="fas fa-arrow-left"></i> <!-- Ikon Kembali -->
+                <i class="fas fa-arrow-left"></i>
             </a>
             <a class="navbar-brand" href="../index.php">MugoLaris</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
