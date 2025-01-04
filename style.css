@@ -1,21 +1,13 @@
+body {
+    background-color: teal;
+}
+
 .top-nav {
     background-color: #DC1E2D;
 }
 .nav-link {
-    color: white !important;
-}
-
-.custom-navbar {
-    background-color: #608dee; /* Ganti dengan warna pilihan Anda */
     color: white;
 }
-.custom-navbar .nav-link {
-    color: white; /* Untuk mengubah warna teks tautan */
-}
-.custom-navbar .nav-link:hover {
-    color: #FFC300; /* Warna saat hover */
-}
-
 .link-footer {
     color: black ;
     text-decoration: none;
@@ -84,9 +76,6 @@
     padding: 3px 10px;
     border-radius: 5px;
 }
-body {
-    background-color: #f4f6f9;
-}
 .card-product {
     transition: transform 0.3s ease;
 }
@@ -100,13 +89,6 @@ body {
     padding: 20px;
     margin-bottom: 20px;
 }
-.product-section {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    padding: 20px;
-}
-
 .carousel-item img{
     height: 400px;
     object-fit: fill;
@@ -225,4 +207,7 @@ body {
     border-radius: 50%;
     width: 150px;
     height: 150px;
+}
+.footer{
+    background-color: #6f6868;
 }

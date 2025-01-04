@@ -1,0 +1,49 @@
+body {
+    background-color: #f8f9fa;
+}
+.navbar {
+    background-color: #608dee;
+    max-height: 50px;
+}
+
+.navbar .navbar-brand {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.nav-item .nav-link {
+    color: white;
+}
+.table th, .table td {
+    vertical-align: middle;
+}
+.table img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.btn-danger {
+    background-color: #ff6f61;
+    border-color: #ff6f61;
+}
+.btn-danger:hover {
+    background-color: #e0554e;
+    border-color: #e0554e;
+}
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #218838;
+}
+.total-card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+}

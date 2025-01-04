@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query = "INSERT INTO pesanan (user_id, total_harga) VALUES (?, ?)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("id", $user_id, $total_harga);
-    
+
     if ($stmt->execute()) {
         $pesanan_id = $stmt->insert_id;
 
@@ -41,17 +41,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Checkout</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container mt-5">
         <h1>Checkout</h1>
         <h3>Total Harga: Rp <?php echo number_format($total_harga, 2, ',', '.'); ?></h3>
-        <form method="POST">
+        <form id="paymentForm" method="POST">
             <button type="submit" class="btn btn-primary">Konfirmasi Pembayaran</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById("paymentForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+
+            const totalHarga = <?php echo $total_harga; ?>;
+            if (totalHarga <= 0) {
+                alert("Keranjang anda masih kosong, tambahkan produk terlebih dahulu sebelum melakukan checkout");
+                return;
+            }
+
+            const userConfirmed = confirm(`Total harga yang harus anda bayarkan adalah \n ${totalHarga.toLocaleString('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            })}`)
+
+            if (userConfirmed) {
+
+                this.submit();
+            }
+        })
+    </script>
 </body>
+
 </html>

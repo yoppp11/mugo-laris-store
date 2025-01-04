@@ -2,19 +2,19 @@
 session_start();
 include '../config/database.php';
 
-// Cek apakah admin sudah login
+ 
 if (!isset($_SESSION['admin_id'])) {
     header("Location: login.php");
     exit();
 }
 
-// Periksa apakah folder 'uploads/' sudah ada
+ 
 $target_dir = __DIR__ . "/uploads/";
 if (!is_dir($target_dir)) {
-    mkdir($target_dir, 0777, true); // Buat folder dengan izin tulis
+    mkdir($target_dir, 0777, true);  
 }
 
-// Proses tambah produk
+ 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama_produk = $_POST['nama_produk'];
     $deskripsi = $_POST['deskripsi'];
@@ -23,45 +23,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $kategori = $_POST['kategori'];
     $gambar = '';
 
-    // Upload gambar jika ada
+     
     if (!empty($_FILES['gambar']['name'])) {
         $file_name = basename($_FILES['gambar']['name']);
         $file_tmp = $_FILES['gambar']['tmp_name'];
         $file_size = $_FILES['gambar']['size'];
         $file_type = mime_content_type($file_tmp);
     
-        // Validasi tipe file
+         
         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
         if (!in_array($file_type, $allowed_types)) {
             $error = "Hanya file gambar (JPEG, PNG, GIF) yang diperbolehkan.";
-        } elseif ($file_size > 2 * 1024 * 1024) { // Maksimal 2MB
+        } elseif ($file_size > 2 * 1024 * 1024) {  
             $error = "Ukuran file maksimal adalah 2MB.";
         } else {
-            $unique_name = uniqid() . "_" . $file_name; // Nama file unik
+            $unique_name = uniqid() . "_" . $file_name;  
             $gambar = "uploads/" . $unique_name;
     
             if (move_uploaded_file($file_tmp, $target_dir . $unique_name)) {
-                // Berhasil diunggah
+                 
             } else {
                 $error = "Gagal mengunggah gambar. Silakan coba lagi.";
             }
         }
     }
 
-    // Masukkan data ke database
+     
     $query = "INSERT INTO produk (nama_produk, deskripsi, harga, stok, kategori, gambar) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ssdiis", $nama_produk, $deskripsi, $harga, $stok, $kategori, $gambar);
 
     if ($stmt->execute()) {
-        // Tampilkan JavaScript untuk pesan sukses dan navigasi
+        
         echo "<script>
             alert('Produk berhasil ditambahkan!');
             window.location.href = 'dashboard.php';
             const closeTabs = window.open('', '_self');
             closeTabs.close();
         </script>";
-        exit(); // Keluar setelah memproses
+        exit(); 
     } else {
         $error = "Gagal menambahkan produk. Silakan coba lagi.";
     }
@@ -77,12 +77,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Tambah Produk</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script>
-        // Fungsi untuk menampilkan dialog konfirmasi
+        
         function confirmSubmission(event) {
-            event.preventDefault(); // Mencegah pengiriman form secara langsung
+            event.preventDefault(); 
             const confirmed = confirm("Apakah Anda yakin ingin menambahkan produk ini?");
             if (confirmed) {
-                document.getElementById("productForm").submit(); // Submit form jika admin memilih "OK"
+                document.getElementById("productForm").submit(); 
             }
         }
     </script>

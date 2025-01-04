@@ -2,13 +2,13 @@
 session_start();
 include '../config/database.php';
 
-$error = ""; // Variabel untuk menampung pesan error
+$error = "";  
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    // Query untuk mengambil data admin berdasarkan username
+     
     $query = "SELECT * FROM admin WHERE username = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $username);
@@ -18,15 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result->num_rows > 0) {
         $admin = $result->fetch_assoc();
 
-        // Validasi password
+        
         if (password_verify($password, $admin['password'])) {
-            // Set sesi admin
+             
             $_SESSION['admin_id'] = $admin['id'];
             $_SESSION['admin_username'] = $admin['username'];
             $_SESSION['admin_nama_lengkap'] = $admin['nama_lengkap'];
             $_SESSION['admin_email'] = $admin['email'];
 
-            // Redirect ke dashboard
+            
             header("Location: dashboard.php");
             exit();
         } else {

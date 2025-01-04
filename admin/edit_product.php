@@ -2,13 +2,13 @@
 session_start();
 include '../config/database.php';
 
-// Cek apakah admin sudah login
+ 
 if (!isset($_SESSION['admin_id'])) {
     header("Location: login.php");
     exit();
 }
 
-// Cek apakah ID produk ada
+ 
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     header("Location: dashboard.php");
     exit();
@@ -16,7 +16,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 
 $id = $_GET['id'];
 
-// Query ambil data produk
+ 
 $query = "SELECT * FROM produk WHERE id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $id);
@@ -24,36 +24,36 @@ $stmt->execute();
 $result = $stmt->get_result();
 $produk = $result->fetch_assoc();
 
-// Jika tombol update ditekan
+ 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Tangkap data dari form
+     
     $nama_produk = htmlspecialchars($_POST['nama_produk']);
     $harga = floatval($_POST['harga']);
     $stok = intval($_POST['stok']);
     $kategori = htmlspecialchars($_POST['kategori']);
 
-    // Default gambar dari database
+     
     $gambar = $produk['gambar'];
 
-    // Proses upload gambar
+     
     if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
         $target_dir = "uploads/";
         
-        // Buat direktori jika belum ada
+         
         if (!is_dir($target_dir)) {
             mkdir($target_dir, 0777, true);
         }
 
-        // Informasi file
+         
         $file_name = basename($_FILES['gambar']['name']);
         $file_tmp = $_FILES['gambar']['tmp_name'];
         $file_size = $_FILES['gambar']['size'];
         
-        // Validasi tipe file
+         
         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
         $file_type = mime_content_type($file_tmp);
 
-        // Cek tipe file
+         
         if (!in_array($file_type, $allowed_types)) {
             echo "<script>
                     alert('Format gambar tidak valid. Hanya JPG, PNG, dan GIF yang diperbolehkan.');
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit;
         }
 
-        // Cek ukuran file (maks 2MB)
+       
         if ($file_size > 2 * 1024 * 1024) {
             echo "<script>
                     alert('Ukuran file maksimal 2MB');
@@ -71,18 +71,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit;
         }
 
-        // Generate nama file unik
+         
         $unique_name = uniqid() . "_" . $file_name;
         $upload_path = $target_dir . $unique_name;
-
-        // Pindahkan file yang diupload
+ 
         if (move_uploaded_file($file_tmp, $upload_path)) {
-            // Hapus gambar lama jika ada
+             
             if (!empty($produk['gambar']) && file_exists($produk['gambar'])) {
                 unlink($produk['gambar']);
             }
             
-            // Update path gambar
+             
             $gambar = $upload_path;
         } else {
             echo "<script>
@@ -93,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // Persiapkan query update
+    
     $query = "UPDATE produk SET 
                 nama_produk = ?, 
                 harga = ?, 
@@ -102,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 gambar = ? 
               WHERE id = ?";
     
-    // Siapkan statement
+     
     $stmt = $conn->prepare($query);
     $stmt->bind_param("sdissi", 
         $nama_produk, 
@@ -113,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id
     );
 
-    // Eksekusi query
+     
     if ($stmt->execute()) {
         echo "<script>
                 alert('Produk berhasil diupdate');

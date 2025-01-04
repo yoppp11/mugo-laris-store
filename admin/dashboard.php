@@ -2,7 +2,7 @@
 session_start();
 include '../config/database.php';
 
-// Cek apakah admin sudah login
+ 
 if (!isset($_SESSION['admin_id'])) {
     header("Location: login.php");
     exit();
@@ -11,7 +11,7 @@ if (!isset($_SESSION['admin_id'])) {
 if (isset($_GET['action']) && $_GET['action'] === 'hapus' && isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Hapus produk dari database
+     
     $query_hapus = "DELETE FROM produk WHERE id = ?";
     $stmt = $conn->prepare($query_hapus);
     $stmt->bind_param("i", $id);
@@ -26,7 +26,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'hapus' && isset($_GET['id']))
     exit();
 }
 
-// Ambil statistik
+ 
 $query_produk = "SELECT COUNT(*) as total_produk FROM produk";
 $query_pesanan = "SELECT COUNT(*) as total_pesanan FROM pesanan";
 
@@ -36,7 +36,7 @@ $result_pesanan = $conn->query($query_pesanan);
 $total_produk = $result_produk->fetch_assoc()['total_produk'];
 $total_pesanan = $result_pesanan->fetch_assoc()['total_pesanan'];
 
-// Ambil daftar produk
+ 
 $query_daftar_produk = "SELECT id, nama_produk, harga, stok, kategori FROM produk ORDER BY created_at DESC LIMIT 10";
 $result_daftar_produk = $conn->query($query_daftar_produk);
 $produk_list = $result_daftar_produk->fetch_all(MYSQLI_ASSOC);

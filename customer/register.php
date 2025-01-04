@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         if ($stmt->execute()) {
             $success = "Registrasi berhasil! Silakan login.";
+            header("Location: login.php");
         } else {
             $error = "Registrasi gagal: " . $stmt->error;
         }

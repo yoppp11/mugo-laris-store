@@ -67,46 +67,86 @@ if (isset($_SESSION['notifikasi'])) {
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $produk['nama_produk']; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        .product-container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .product-details {
+            margin-top: 20px;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .alert {
+            border-radius: 5px;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container mt-5">
         <!-- Tampilkan notifikasi jika ada -->
         <?php if ($notifikasi): ?>
             <div class="alert alert-success" role="alert">
-                <?php echo $notifikasi; ?>
+                <i class="fas fa-check-circle"></i> <?php echo $notifikasi; ?>
             </div>
         <?php endif; ?>
 
-        <h1><?php echo $produk['nama_produk']; ?></h1>
-        <img src="../admin/uploads/<?php echo htmlspecialchars(basename($produk['gambar'])); ?>" 
-             alt="<?php echo htmlspecialchars($produk['nama_produk']); ?>" 
-             class="img-fluid mb-3">
-        <p><?php echo $produk['deskripsi']; ?></p>
-        <p>Harga: Rp <?php echo number_format($produk['harga'], 2, ',', '.'); ?></p>
-        <form method="POST">
-            <div class="mb-3">
-                <label class="form-label">Jumlah</label>
-                <input type="number" name="jumlah" class="form-control" value="1" min="1" required>
+        <div class="product-container">
+            <div class="row">
+                <div class="col-md-6 product-image">
+                    <img src="../admin/uploads/<?php echo htmlspecialchars(basename($produk['gambar'])); ?>" 
+                         alt="<?php echo htmlspecialchars($produk['nama_produk']); ?>">
+                </div>
+                <div class="col-md-6">
+                    <h1><?php echo $produk['nama_produk']; ?></h1>
+                    <p><?php echo $produk['deskripsi']; ?></p>
+                    <p class="product-price">Rp <?php echo number_format($produk['harga'], 2, ',', '.'); ?></p>
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Jumlah</label>
+                            <input type="number" name="jumlah" class="form-control" value="1" min="1" required>
+                        </div>
+                        <button type="submit" name="tambah_keranjang" class="btn btn-primary">
+                            <i class="fas fa-shopping-cart"></i> Tambah ke Keranjang
+                        </button>
+                    </form>
+                </div>
             </div>
-            <button type="submit" name="tambah_keranjang" class="btn btn-primary">Tambah ke Keranjang</button>
-        </form>
+        </div>
     </div>
-    <script>
-        // Jika URL mengandung parameter success=1
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('success')) {
-            // Hapus parameter success agar tidak muncul lagi
-            history.replaceState(null, '', window.location.pathname);
-
-            // Deteksi jika pengguna menekan tombol back
-            window.addEventListener('popstate', function () {
-                // Arahkan ke halaman utama dan tutup tab ini
-                window.location.href = 'index.php';
-                window.close();
-            });
-        }
-    </script>
 </body>
 </html>

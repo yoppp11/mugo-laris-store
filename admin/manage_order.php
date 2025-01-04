@@ -2,13 +2,13 @@
 session_start();
 include '../config/database.php';
 
-// Cek apakah admin sudah login
+ 
 if (!isset($_SESSION['admin_id'])) {
     header("Location: login.php");
     exit();
 }
 
-// Ambil data pesanan
+ 
 $query = "SELECT * FROM pesanan ORDER BY created_at DESC";
 $result = $conn->query($query);
 

@@ -5,99 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        .navbar {
+            background-color: #608dee;
+            max-height: 50px;
+        }
+
+        .navbar-brand {
+            color: white;
+            font-weight: 600;
+            font-size: 24px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            letter-spacing: 2px;
+            margin-left: 8px;
+        }
+
+        .nav-item {
+            font-weight: 500;
+        }
+
+        .nav-item .nav-link {
+            color: white;
+        }
+
         .hero-section {
-    position: relative;
-    width: 100%;
-    height: 400px;
-    background: linear-gradient(135deg, #3494E6, #2196F3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
+        position: relative;
+        width: 100%;
+        height: 400px;
+        background: linear-gradient(135deg, #3494E6, #2196F3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        }
 
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-.hero-text {
-    text-align: center;
-    color: white;
-    z-index: 2;
-    font-family: 'Arial', sans-serif;
-}
+        .hero-text {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            font-family: 'Arial', sans-serif;
+        }
 
-.hero-text h1 {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    letter-spacing: 3px;
-}
+        .hero-text h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 3px;
+        }
 
-.hero-text p {
-    font-size: 1.5rem;
-    opacity: 0.9;
-}
+        .hero-text p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
 
-/* Efek animasi teks */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+       
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.hero-text h1 {
-    animation: fadeIn 1s ease-out;
-}
+        .hero-text h1 {
+            animation: fadeIn 1s ease-out;
+        }
 
-.hero-text p {
-    animation: fadeIn 1s ease-out 0.5s backwards;
-}
+        .hero-text p {
+            animation: fadeIn 1s ease-out 0.5s backwards;
+        }
 
-/* Efek partikel latar belakang */
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background-image: 
-        radial-gradient(#1a1717 15%, transparent 16%),
-        radial-gradient(#1a1717 15%, transparent 16%);
-    background-size: 50px 50px;
-    background-position: 0 0, 25px 25px;
-    opacity: 0.05;
-    animation: moveBackground 20s linear infinite;
-}
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                radial-gradient(#1a1717 15%, transparent 16%),
+                radial-gradient(#1a1717 15%, transparent 16%);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            opacity: 0.05;
+            animation: moveBackground 20s linear infinite;
+        }
 
-@keyframes moveBackground {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
+        @keyframes moveBackground {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Hero Section -->
+    <nav class="navbar navbar-expand-lg shadow-sm">
+        <div class="container">
+            <a href="javascript:history.back()" class="btn btn-light me-2">
+                <i class="fas fa-arrow-left"></i> 
+            </a>
+            <a class="navbar-brand" href="../index.php">MugoLaris</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./customer/gallery.php">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./customer/chart.php">Keranjang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Tentang Kami</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    
     <div class="hero-section">
         <div class="hero-overlay"></div>
         <div class="hero-text">
@@ -107,7 +155,7 @@
 
     </div>
 
-    <!-- Content Section -->
+    
     <div class="container content-section">
         <div class="row mb-5">
             <div class="col-lg-6">
@@ -127,7 +175,7 @@
             </div>
         </div>
 
-        <!-- Mission and Vision -->
+       
         <div class="row text-center mb-5">
             <div class="col-md-6">
                 <h3>Our Mission</h3>
@@ -139,7 +187,7 @@
             </div>
         </div>
 
-        <!-- Team Section -->
+       
         <div class="text-center mb-5">
             <h2>Meet the Team</h2>
             <p>Our dedicated team is the backbone of our success.</p>
@@ -162,7 +210,7 @@
             </div>
         </div>
 
-        <!-- Call to Action -->
+       
         <div class="text-center">
             <h3>We'd Love to Hear From You!</h3>
             <p>Have any questions or feedback? Contact us at <a href="mailto:support@yourcompany.com">support@mugolaris.com</a></p>

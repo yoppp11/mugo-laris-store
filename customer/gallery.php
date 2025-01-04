@@ -9,15 +9,16 @@ $result = mysqli_query($conn, $query);
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Produk</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="gallery-style.css">
     <style>
         body {
             background-color: #f4f6f9;
@@ -27,13 +28,13 @@ $result = mysqli_query($conn, $query);
         .product-card {
             transition: all 0.3s ease;
             border: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
 
         .product-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
         .product-card-img {
@@ -73,7 +74,7 @@ $result = mysqli_query($conn, $query);
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         @media (max-width: 768px) {
@@ -81,9 +82,57 @@ $result = mysqli_query($conn, $query);
                 height: 200px;
             }
         }
+
+        .navbar {
+            background-color: #608dee;
+            max-height: 50px;
+        }
+
+        .navbar-brand {
+            color: white;
+            font-weight: 600;
+            font-size: 24px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            letter-spacing: 2px;
+            margin-left: 8px;
+        }
+
+        .nav-item {
+            font-weight: 500;
+        }
+
+        .nav-item .nav-link {
+            color: white;
+        }
     </style>
+
 </head>
+
 <body>
+    <nav class="navbar navbar-expand-lg shadow-sm">
+        <div class="container">
+            <a href="javascript:history.back()" class="btn btn-light me-2">
+                <i class="fas fa-arrow-left"></i> <!-- Ikon Kembali -->
+            </a>
+            <a class="navbar-brand" href="../index.php">MugoLaris</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./chart.php">Keranjang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../about_us.html">Tentang Kami</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container-fluid py-5">
         <!-- Filter Section -->
         <div class="row mb-4">
@@ -93,12 +142,12 @@ $result = mysqli_query($conn, $query);
                         <div class="col-md-4">
                             <select class="form-select" id="kategoriFilter">
                                 <option value="">Semua Kategori</option>
-                                <?php 
+                                <?php
                                 // Ambil kategori unik
                                 $kategori_query = "SELECT DISTINCT kategori FROM produk";
                                 $kategori_result = mysqli_query($conn, $kategori_query);
-                                while($kategori = mysqli_fetch_assoc($kategori_result)) {
-                                    echo "<option value='".$kategori['kategori']."'>".$kategori['kategori']."</option>";
+                                while ($kategori = mysqli_fetch_assoc($kategori_result)) {
+                                    echo "<option value='" . $kategori['kategori'] . "'>" . $kategori['kategori'] . "</option>";
                                 }
                                 ?>
                             </select>
@@ -120,23 +169,20 @@ $result = mysqli_query($conn, $query);
 
         <!-- Produk Section -->
         <div class="row" id="produkContainer">
-            <?php while($produk = mysqli_fetch_assoc($result)): ?>
-                <div class="col-md-3 col-sm-6 produk-item" 
-                     data-kategori="<?= $produk['kategori'] ?>" 
-                     data-harga="<?= $produk['harga'] ?>">
+            <?php while ($produk = mysqli_fetch_assoc($result)): ?>
+                <div class="col-md-3 col-sm-6 produk-item" data-kategori="<?= $produk['kategori'] ?>"
+                    data-harga="<?= $produk['harga'] ?>">
                     <div class="card product-card">
-                        <img src="../admin/uploads/<?php echo htmlspecialchars(basename($produk['gambar'])); ?>" 
-                             class="card-img-top product-card-img" 
-                             alt="<?= $produk['nama_produk'] ?>">
-                        
+                        <img src="../admin/uploads/<?php echo htmlspecialchars(basename($produk['gambar'])); ?>"
+                            class="card-img-top product-card-img" alt="<?= $produk['nama_produk'] ?>">
+
                         <div class="card-body">
                             <h5 class="card-title product-title"><?= $produk['nama_produk'] ?></h5>
                             <p class="card-text product-price">Rp. <?= number_format($produk['harga'], 0, ',', '.') ?></p>
-                            
+
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="badge bg-primary"><?= $produk['kategori'] ?></span>
-                                <a href="detail_produk.php?id=<?= $produk['id'] ?>" 
-                                   class="btn btn-sm btn-custom">
+                                <a href="detail_produk.php?id=<?= $produk['id'] ?>" class="btn btn-sm btn-custom">
                                     Lihat Detail
                                 </a>
                             </div>
@@ -149,10 +195,10 @@ $result = mysqli_query($conn, $query);
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- Custom JavaScript untuk Filtering -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const kategoriFilter = document.getElementById('kategoriFilter');
             const searchInput = document.getElementById('searchInput');
             const sortFilter = document.getElementById('sortFilter');
@@ -166,7 +212,7 @@ $result = mysqli_query($conn, $query);
                 produkItems.forEach(item => {
                     const itemKategori = item.getAttribute('data-kategori');
                     const itemNama = item.querySelector('.card-title').textContent.toLowerCase();
-                    
+
                     const kategoriMatch = kategori === '' || itemKategori === kategori;
                     const searchMatch = itemNama.includes(search);
 
@@ -183,4 +229,5 @@ $result = mysqli_query($conn, $query);
         });
     </script>
 </body>
+
 </html>
