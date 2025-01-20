@@ -2,13 +2,13 @@
 session_start();
 include '../belajar-bootstrap/config/database.php';
 
-// Cek apakah user sudah login
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
-// Ambil data user
+
 $user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM users WHERE id = ?";
 $stmt = $conn->prepare($query);
@@ -16,8 +16,8 @@ $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $user = $stmt->get_result()->fetch_assoc();
 
-// Ambil data produk terbaru
-$query_produk = "SELECT * FROM produk ORDER BY created_at DESC LIMIT 3"; // Ganti 'produk' dengan nama tabel yang sesuai
+
+$query_produk = "SELECT * FROM produk ORDER BY created_at DESC LIMIT 3"; 
 $stmt_produk = $conn->prepare($query_produk);
 $stmt_produk->execute();
 $result_produk = $stmt_produk->get_result();
@@ -30,11 +30,11 @@ $result_produk = $stmt_produk->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Produk</title>
 
-    <!-- Bootstrap CSS -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- Custom Styles -->
+    
     <style>
         .custom-navbar {
             background-color: #608dee;
@@ -48,7 +48,7 @@ $result_produk = $stmt_produk->get_result();
 
         .custom-navbar .nav-link:hover {
             color: #FFC300;
-            /* Warna saat hover */
+            
         }
 
         .custom-navbar .navbar-brand {
@@ -244,7 +244,7 @@ $result_produk = $stmt_produk->get_result();
             transform: scale(1.1);
         }
 
-        /* Efek partikel */
+        
         .promo-poster::before {
             content: '';
             position: absolute;
@@ -271,7 +271,7 @@ $result_produk = $stmt_produk->get_result();
             }
         }
 
-        /* Responsif */
+       
         @media (max-width: 768px) {
             .promo-poster {
                 flex-direction: column;
@@ -308,7 +308,7 @@ $result_produk = $stmt_produk->get_result();
 </head>
 
 <body>
-    <!-- Navbar -->
+    
     <nav class="navbar navbar-expand-lg custom-navbar mb-4 shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="#">Dashboard</a>
@@ -334,10 +334,10 @@ $result_produk = $stmt_produk->get_result();
         </div>
     </nav>
 
-    <!-- Main Container -->
+    
     <div class="container">
 
-        <!-- Carousel Slider -->
+        
         <div id="carouselIklan" class="carousel slide mb-5" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselIklan" data-bs-slide-to="0" class="active"
@@ -355,9 +355,6 @@ $result_produk = $stmt_produk->get_result();
                             <p>Dapatkan diskon hingga 50% untuk pembelian pertama Anda. Promo berlaku minggu ini!</p>
                             <a href="#" class="promo-button">Beli Sekarang</a>
                         </div>
-                        <!-- <div class="promo-image">
-                            <img src="https://via.placeholder.com/800x400" alt="Promo Image">
-                        </div> -->
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -378,7 +375,7 @@ $result_produk = $stmt_produk->get_result();
         </div>
 
 
-        <!-- Welcome Section -->
+        
         <div class="row welcome-section mb-4">
             <div class="col-12">
                 <h1 style="color: white" class="h3">Selamat Datang,
@@ -388,7 +385,7 @@ $result_produk = $stmt_produk->get_result();
             </div>
         </div>
 
-        <!-- Products Section -->
+        
         <div class="product-section">
             <div class="row">
                 <div class="col-12 mb-3">
@@ -418,7 +415,7 @@ $result_produk = $stmt_produk->get_result();
         </div>
     </div>
 
-    <!-- Footer -->
+    
     <footer class="bg-dark py-5">
         <div class="container">
             <div class="row">
@@ -464,7 +461,7 @@ $result_produk = $stmt_produk->get_result();
         </div>
     </footer>
 
-    <!-- Bootstrap JS dan Dependencies -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
